@@ -22,16 +22,25 @@ A simple Flutter shopping app featuring product listing, favorites, cart, and da
 
 ### Home Screen
 
-![Home Screen](screenshots/home_screen.png)
+<img width="1761" height="833" alt="image" src="https://github.com/user-attachments/assets/50f2b84c-8eae-4642-9d84-eb0ad5771d3a" />
+
+### Dark Mode
+<img width="1786" height="840" alt="image" src="https://github.com/user-attachments/assets/4ef846be-eab3-4960-a06e-a6573363ec54" />
+
+### Product Sorting 
+<img width="1740" height="844" alt="image" src="https://github.com/user-attachments/assets/d8313fd8-21d2-4e66-8f2a-c49aa43fcea3" />
+
 
 ### Product Details / Cart
 
-![Cart Screen](screenshots/cart_screen.png)
+<img width="1751" height="849" alt="image" src="https://github.com/user-attachments/assets/e5bc33a1-9bf8-423c-a540-e3070efd04de" />
+
+### Favourite Product
+<img width="1800" height="857" alt="image" src="https://github.com/user-attachments/assets/b616d2d9-c4d1-4a5e-a20e-eaab52fa7752" />
 
 ### Login Screen
 
-![Login Screen]<img width="1892" height="880" alt="Screenshot 2025-07-20 214608" src="https://github.com/user-attachments/assets/3e816712-7b17-41c4-8c59-c9290ae40eee" />
-)
+<img width="1892" height="880" alt="Screenshot 2025-07-20 214608" src="https://github.com/user-attachments/assets/3e816712-7b17-41c4-8c59-c9290ae40eee" />
 
 ---
 
@@ -48,5 +57,5 @@ A simple Flutter shopping app featuring product listing, favorites, cart, and da
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/flutter-shopping-app.git
-cd flutter-shopping-app
+git clone https://github.com/NabilaJ22/Smartshop.git
+cd Smartshop
