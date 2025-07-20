@@ -15,7 +15,7 @@ enum SortOption { priceLow, priceHigh, rating }
 
 class _HomeScreenState extends State<HomeScreen> {
   late Future<List<Product>> _futureProducts;
-  SortOption? _sortOption;
+  SortOption _sortOption = SortOption.priceLow;
 
   @override
   void initState() {
@@ -30,9 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   List<Product> _applySorting(List<Product> products) {
-    if (_sortOption == null) return products;
-
-    switch (_sortOption!) {
+    switch (_sortOption) {
       case SortOption.priceLow:
         products.sort((a, b) => a.price.compareTo(b.price));
         break;
@@ -46,6 +44,43 @@ class _HomeScreenState extends State<HomeScreen> {
     return products;
   }
 
+  Map<String, List<Product>> _groupProductsByCategory(List<Product> products) {
+    final Map<String, List<Product>> grouped = {};
+    for (var product in products) {
+      grouped.putIfAbsent(product.category, () => []).add(product);
+    }
+    return grouped;
+  }
+
+  Widget _buildCategorySection(String category, List<Product> products) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
+          child: Text(
+            category.toUpperCase(),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        ),
+        GridView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          padding: EdgeInsets.symmetric(horizontal: 8),
+          itemCount: products.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+            childAspectRatio: 0.65,
+          ),
+          itemBuilder: (context, index) {
+            return ProductCard(product: products[index]);
+          },
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text('Products'),
         actions: [
           PopupMenuButton<SortOption>(
+            initialValue: _sortOption,
             onSelected: (value) {
               setState(() {
                 _sortOption = value;
@@ -75,16 +111,13 @@ class _HomeScreenState extends State<HomeScreen> {
           future: _futureProducts,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              List<Product> products = _applySorting(snapshot.data!);
-              return GridView.builder(
-                padding: EdgeInsets.all(8),
-                itemCount: products.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, childAspectRatio: 0.65,
-                ),
-                itemBuilder: (context, index) {
-                  return ProductCard(product: products[index]);
-                },
+              List<Product> sortedProducts = _applySorting(snapshot.data!);
+              final grouped = _groupProductsByCategory(sortedProducts);
+
+              return ListView(
+                children: grouped.entries
+                    .map((entry) => _buildCategorySection(entry.key, entry.value))
+                    .toList(),
               );
             } else if (snapshot.hasError) {
               return Center(child: Text('Failed to load products'));

@@ -36,11 +36,31 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
-        child: SpinKitFadingCube(
-          color: Theme.of(context).primaryColor,
-          size: 50.0,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Replace with your actual logo if you have one
+              Icon(Icons.shopping_bag_rounded, size: 80, color: Theme.of(context).primaryColor),
+              SizedBox(height: 16),
+              Text(
+                'ShopSmart',
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
+              SizedBox(height: 24),
+              SpinKitFadingCube(
+                color: Theme.of(context).primaryColor,
+                size: 40.0,
+              ),
+            ],
+          ),
         ),
       ),
     );

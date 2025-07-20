@@ -33,35 +33,75 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      appBar: AppBar(title: Text('Login')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
+      backgroundColor: theme.colorScheme.background,
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextFormField(
-                controller: _email,
-                decoration: InputDecoration(labelText: 'Email'),
-                validator: (value) =>
-                value == null || value.isEmpty ? 'Enter email' : null,
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                controller: _password,
-                obscureText: true,
-                decoration: InputDecoration(labelText: 'Password'),
-                validator: (value) =>
-                value == null || value.isEmpty ? 'Enter password' : null,
+              Icon(Icons.lock_outline, size: 72, color: theme.primaryColor),
+              SizedBox(height: 12),
+              Text(
+                'Welcome Back!',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: theme.primaryColor,
+                ),
               ),
               SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: _login,
-                child: Text('Login'),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: _email,
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                        prefixIcon: Icon(Icons.email_outlined),
+                      ),
+                      validator: (value) =>
+                      value == null || value.isEmpty ? 'Enter email' : null,
+                    ),
+                    SizedBox(height: 16),
+                    TextFormField(
+                      controller: _password,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                        prefixIcon: Icon(Icons.lock_outline),
+                      ),
+                      validator: (value) =>
+                      value == null || value.isEmpty ? 'Enter password' : null,
+                    ),
+                    SizedBox(height: 24),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: _login,
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(vertical: 14),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: Text('Login', style: TextStyle(fontSize: 16)),
+                      ),
+                    ),
+                    SizedBox(height: 12),
+                    Text(
+                      'Demo: user@test.com / 123456',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(height: 12),
-              Text('Use: user@test.com / 123456'),
             ],
           ),
         ),
